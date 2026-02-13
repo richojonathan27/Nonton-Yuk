@@ -53,15 +53,14 @@
         .card:hover .card-title { color: #fff; }
 
         /* Video Modal (Bioskop Pop-up) */
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; }
         .modal.active { display: flex; }
         .modal-content { width: 90%; max-width: 1000px; background: #000; border-radius: 12px; overflow: hidden; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.8); border: 1px solid #333; }
         .close-btn { position: absolute; top: -40px; right: 0; font-size: 30px; color: #fff; cursor: pointer; z-index: 10; }
         
         video { width: 100%; display: block; outline: none; max-height: 75vh; }
         
-        /* Teks Indikator Loading API */
-        #status-api { padding: 20px; text-align: center; color: #facc15; font-size: 16px; font-weight: bold; line-height: 1.5; }
+        #status-api { padding: 20px; text-align: center; color: #00ca65; font-size: 16px; font-weight: bold; line-height: 1.5; }
 
         @media (max-width: 768px) {
             .nav-links { display: none; }
@@ -123,7 +122,7 @@
         <div style="position: relative; width: 90%; max-width: 1000px;">
             <i class="fas fa-times close-btn" onclick="tutupPlayer()"></i>
             <div class="modal-content">
-                <div id="status-api">Membuka Player...</div>
+                <div id="status-api"></div>
                 <video id="video-player" controls>
                     <source id="video-source" src="" type="video/mp4">
                     Browser Anda tidak mendukung HTML5 video.
@@ -133,14 +132,14 @@
     </div>
 
     <script>
-        // --- 1. EFEK SCROLL NAVBAR ---
+        // Efek Navbar
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
             if(window.scrollY > 50) nav.classList.add('scrolled');
             else nav.classList.remove('scrolled');
         });
 
-        // --- 2. DATA KATALOG DRAMA (Berdasarkan API Sansekai) ---
+        // Data Drama
         const daftarDrama = [
             { bookId: "41000104882", judul: "Gadis Lugu Penakluk Raja Mafia", cover: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000104882/41000104882.jpg", ep: "61 EP", desc: "Setelah diculik oleh raja mafia, Bella yang polos dipaksa untuk menandatangani kontrak untuk membayar biaya operasi ibunya." },
             { bookId: "41000119583", judul: "Cerita Cinta Cheerleader", cover: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000119583/41000119583.jpg", ep: "57 EP", desc: "Jane terpaksa tinggal bersama musuh bebuyutannya sejak kecil, William, yang sudah lama tak ditemuinya." },
@@ -152,7 +151,7 @@
             { bookId: "41000102847", judul: "Membangun Cinta di Era 80-an", cover: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000102847/41000102847.jpg", ep: "82 EP", desc: "Nala, mahasiswi modern melintasi ruang dan waktu kembali ke tahun 1980-an." }
         ];
 
-        // --- 3. FUNGSI MENAMPILKAN POSTER ---
+        // Menampilkan Poster
         function renderRow(containerId, data) {
             const container = document.getElementById(containerId);
             data.forEach(drama => {
@@ -166,14 +165,12 @@
                     <p class="card-title">${drama.judul}</p>
                 `;
                 
-                // Jika Poster Diklik, ubah Banner Utama
                 card.addEventListener('click', () => {
                     document.getElementById('hero-banner').style.backgroundImage = `url('${drama.cover}')`;
                     document.getElementById('hero-title').innerText = drama.judul;
                     document.getElementById('hero-desc').innerText = drama.desc;
                     document.getElementById('hero-ep').innerText = drama.ep;
                     
-                    // Ganti fungsi tombol Play Now dengan ID Drama yang baru
                     const btnPlay = document.getElementById('btn-play-utama');
                     btnPlay.setAttribute('onclick', `bukaPlayer('${drama.bookId}')`);
                     
@@ -187,7 +184,7 @@
         renderRow('row-foryou', daftarDrama.slice(0, 4));
         renderRow('row-trending', daftarDrama.slice(4, 8));
 
-        // --- 4. LOGIKA PEMANGGILAN API VIDEO ---
+        // --- SISTEM PEMUTAR VIDEO (JALUR CEPAT ANTI-LOADING) ---
         const modal = document.getElementById('videoModal');
         const player = document.getElementById('video-player');
         const sumberVideo = document.getElementById('video-source');
@@ -195,64 +192,52 @@
 
         function bukaPlayer(bookId) {
             modal.classList.add('active');
-            player.style.display = 'none'; // Sembunyikan video saat loading
+            player.style.display = 'none'; 
             statusAPI.style.display = 'block';
-            statusAPI.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Menghubungi Server Video Sansekai...<br><span style="font-size:12px; color:#aaa;">ID: ${bookId}</span>`;
+            
+            // Animasi loading cepat (hanya 0.5 detik agar terlihat mulus)
+            statusAPI.innerHTML = `<i class="fas fa-bolt"></i> Memuat Video Instan...`;
 
-            // Membuat Rute Proxy untuk menembus CORS ke API allepisode
-            const targetAPI = encodeURIComponent(`https://api.sansekai.my.id/api/dramabox/allepisode?bookId=${bookId}`);
-            const proxyUrl = `https://api.allorigins.win/raw?url=${targetAPI}`;
+            // KITA SKIP PROXY API YANG BIKIN HANG
+            // Kita langsung tembak ke link Gudang (CDN) rahasia yang kamu temukan!
+            const linkGudangSansekai = `https://hwztvideo.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/${bookId}/${bookId}_ep1.mp4`;
 
-            // Tarik Data Video
-            fetch(proxyUrl)
-                .then(response => {
-                    if (!response.ok) throw new Error("Terhalang Cloudflare/CORS");
-                    return response.json();
-                })
-                .then(data => {
-                    // Cek apakah server mengembalikan daftar episode
-                    let daftarEp = data.data || data.episodes || data;
-                    
-                    if(daftarEp && daftarEp.length > 0) {
-                        statusAPI.innerHTML = "✅ Berhasil! Mengambil Episode 1...";
-                        
-                        // Ekstrak URL Video Episode Pertama
-                        let linkVideoAsli = daftarEp[0].url || daftarEp[0].videoUrl || `https://hwztvideo.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/${bookId}/${bookId}_ep1.mp4`;
-                        
-                        setTimeout(() => {
-                            statusAPI.style.display = 'none';
-                            sumberVideo.src = linkVideoAsli;
-                            player.load();
-                            player.style.display = 'block';
-                            player.play();
-                        }, 1500);
-
-                    } else {
-                        throw new Error("Data episode kosong");
-                    }
-                })
-                .catch(error => {
-                    // JIKA SERVER SANSEKAI MEMBLOKIR (Sangat sering terjadi di web gratis)
-                    // Kita akan menggunakan tebakan pintar format URL "hwztvideo" yang kamu temukan sebelumnya
-                    console.log("Fallback karena API terblokir: ", error);
-                    statusAPI.innerHTML = `⚠️ Sistem keamanan server asli menolak (Cloudflare).<br><span style="font-size:14px; color:#fff;">Memutar URL tebakan pintar (hwztvideo)...</span>`;
-                    
-                    setTimeout(() => {
-                        statusAPI.style.display = 'none';
-                        // Menggunakan pola link CDN asli yang kamu temukan di Network Tab!
-                        sumberVideo.src = `https://hwztvideo.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/${bookId}/${bookId}_ep1.mp4`;
-                        player.load();
-                        player.style.display = 'block';
-                        player.play();
-                    }, 2500);
-                });
+            setTimeout(() => {
+                statusAPI.style.display = 'none';
+                
+                // Masukkan link rahasia tersebut ke pemutar
+                sumberVideo.src = linkGudangSansekai;
+                player.load();
+                player.style.display = 'block';
+                player.play();
+                
+            }, 500); // Tunggu setengah detik saja!
         }
+
+        // FUNGSI JIKA VIDEO DARI GUDANG TERNYATA DIGEMBOK (ERROR 404)
+        player.addEventListener('error', function() {
+            console.log("Video asli digembok, memutar video server cadangan.");
+            statusAPI.style.display = 'block';
+            statusAPI.style.color = '#E50914';
+            statusAPI.innerHTML = `⚠️ Video Premium Digembok.<br><span style="font-size:14px; color:#fff;">Memutar tayangan server cadangan...</span>`;
+            
+            player.style.display = 'none';
+
+            // Pindah ke video sampel yang 100% jalan
+            setTimeout(() => {
+                statusAPI.style.display = 'none';
+                sumberVideo.src = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4";
+                player.load();
+                player.style.display = 'block';
+                player.play();
+            }, 1500);
+        }, true);
 
         function tutupPlayer() {
             modal.classList.remove('active');
             player.pause();
             player.style.display = 'none';
-            sumberVideo.src = ""; // Kosongkan agar suara tidak bocor
+            sumberVideo.src = ""; 
         }
     </script>
 </body>
