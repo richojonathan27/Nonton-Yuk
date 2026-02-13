@@ -26,7 +26,6 @@
         .posters { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 15px; scrollbar-width: none; }
         .posters::-webkit-scrollbar { display: none; }
         
-        /* Tambahan Desain Baru untuk Judul di Bawah Poster */
         .poster-wrapper { min-width: 200px; display: flex; flex-direction: column; gap: 10px; }
         .poster { width: 100%; height: 300px; border-radius: 8px; background-size: cover; background-position: center; cursor: pointer; transition: transform 0.3s ease, border 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
         .poster:hover { transform: scale(1.05); border: 2px solid #E50914; }
@@ -69,13 +68,14 @@
     <div class="row">
         <h2>Drama Pilihan Mingguan ⚡</h2>
         <div class="posters" id="tempat-poster-api">
-            <p style="color: #a3a3a3;">Loading...</p>
+            <p style="color: #a3a3a3;">Mencoba jalur alternatif ke server Sansekai...</p>
         </div>
     </div>
 
     <script>
+        // KITA GANTI PROXY-NYA MENGGUNAKAN CORSProxy.io atau Codetabs
         const targetAPI = encodeURIComponent('https://api.sansekai.my.id/api/dramabox/vip');
-        const apiEndpoint = `https://api.allorigins.win/raw?url=${targetAPI}`;
+        const apiEndpoint = `https://api.codetabs.com/v1/proxy?quest=${targetAPI}`;
         
         const wadahPoster = document.getElementById('tempat-poster-api');
         const judulUtama = document.getElementById('judul-utama');
@@ -92,11 +92,9 @@
                 const daftarDrama = data.columnVoList[0].bookList;
 
                 daftarDrama.forEach(drama => {
-                    // 1. Membuat Bungkus Utama (Wadah untuk Poster + Judul)
                     const wadahItem = document.createElement('div');
                     wadahItem.className = 'poster-wrapper';
 
-                    // 2. Membuat Gambar Poster
                     const posterBaru = document.createElement('div');
                     posterBaru.className = 'poster';
                     
@@ -106,12 +104,10 @@
                         posterBaru.style.backgroundColor = '#333'; 
                     }
                     
-                    // 3. Membuat Teks Judul di Bawah Poster
                     const teksJudul = document.createElement('p');
                     teksJudul.className = 'poster-title';
-                    teksJudul.innerText = drama.bookName; // Mengambil judul asli
+                    teksJudul.innerText = drama.bookName; 
                     
-                    // Fitur Klik Tetap Aktif
                     posterBaru.addEventListener('click', () => {
                         judulUtama.innerText = drama.bookName;
                         deskripsiUtama.innerText = drama.introduction || "Sinopsis belum tersedia.";
@@ -119,16 +115,13 @@
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                     });
                     
-                    // Memasukkan gambar dan judul ke dalam bungkus
                     wadahItem.appendChild(posterBaru);
                     wadahItem.appendChild(teksJudul);
-
-                    // Memasukkan semuanya ke dalam layar utama
                     wadahPoster.appendChild(wadahItem);
                 });
             })
             .catch(error => {
-                wadahPoster.innerHTML = '<p style="color: #E50914;">Gagal mengambil data. Server Sansekai memblokir akses.</p>';
+                wadahPoster.innerHTML = '<p style="color: #E50914;">Gagal mengambil data. Server Sansekai memiliki sistem Anti-Robot (Cloudflare) yang ketat.</p>';
                 console.error('Error:', error);
             });
     </script>
