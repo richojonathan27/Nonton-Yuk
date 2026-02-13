@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamFlix - Nonton Sepuasnya</title>
+    <style>
+        /* Desain Dasar Tema Gelap */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #141414; color: #ffffff; overflow-x: hidden; }
+
+        /* Navigasi Atas */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 4%; background: linear-gradient(rgba(0,0,0,0.9), transparent); position: absolute; width: 100%; z-index: 10; }
+        .logo { color: #E50914; font-size: 28px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
+        .menu { list-style: none; display: flex; gap: 20px; font-size: 14px; font-weight: 500; }
+        .menu li a { color: #e5e5e5; text-decoration: none; transition: 0.3s; }
+        .menu li a:hover { color: #b3b3b3; }
+
+        /* Area Pemutar Video Utama */
+        .hero { position: relative; width: 100%; padding-top: 80px; padding-bottom: 40px; display: flex; flex-direction: column; align-items: center; background-color: #000; }
+        .hero-info { text-align: center; margin-bottom: 20px; z-index: 2; }
+        .hero-info h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .hero-info p { color: #a3a3a3; font-size: 1rem; max-width: 600px; margin: 0 auto; }
+        
+        /* Pengaturan Video Player */
+        .video-container { width: 80%; max-width: 1000px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.8); border: 1px solid #333; }
+        video { width: 100%; display: block; outline: none; background-color: #000; }
+
+        /* Deretan Film (Thumbnail) */
+        .row { padding: 20px 4%; margin-top: 20px; }
+        .row h2 { font-size: 1.4rem; margin-bottom: 15px; color: #e5e5e5; }
+        .posters { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 15px; scrollbar-width: none; }
+        .posters::-webkit-scrollbar { display: none; } /* Menyembunyikan scrollbar */
+        .poster { min-width: 200px; height: 300px; border-radius: 8px; background-size: cover; background-position: center; cursor: pointer; transition: transform 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .poster:hover { transform: scale(1.05); border: 2px solid #E50914; }
+
+        /* Responsif untuk HP */
+        @media (max-width: 768px) {
+            .menu { display: none; } /* Sembunyikan menu di HP agar rapi */
+            .video-container { width: 95%; }
+            .hero-info h1 { font-size: 1.8rem; }
+            .poster { min-width: 140px; height: 210px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">StreamFlix</div>
+        <ul class="menu">
+            <li><a href="#">Beranda</a></li>
+            <li><a href="#">Serial TV</a></li>
+            <li><a href="#">Film</a></li>
+            <li><a href="#">Terbaru</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-info">
+            <h1>Big Buck Bunny</h1>
+            <p>Saksikan petualangan kelinci raksasa yang lucu dalam film animasi pendek pemenang penghargaan ini. Tekan tombol play untuk memulai.</p>
+        </div>
+        
+        <div class="video-container">
+            <video controls poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg">
+                <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+                Maaf, browsermu tidak mendukung pemutar video ini.
+            </video>
+        </div>
+    </div>
+
+    <div class="row">
+        <h2>Sedang Tren Sekarang</h2>
+        <div class="posters">
+            <div class="poster" style="background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=400&q=80');"></div>
+            <div class="poster" style="background-image: url('https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=400&q=80');"></div>
+            <div class="poster" style="background-image: url('https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?auto=format&fit=crop&w=400&q=80');"></div>
+            <div class="poster" style="background-image: url('https://images.unsplash.com/photo-1574267432553-4b4628081524?auto=format&fit=crop&w=400&q=80');"></div>
+            <div class="poster" style="background-image: url('https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=400&q=80');"></div>
+            <div class="poster" style="background-image: url('https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=400&q=80');"></div>
+        </div>
+    </div>
+
+</body>
+</html>
