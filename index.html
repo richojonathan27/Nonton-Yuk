@@ -64,9 +64,11 @@
         </div>
     </div>
 
-    <script>
-        // Memanggil API TVMaze (Aman dan tidak diblokir provider)
-        const apiEndpoint = 'https://api.sansekai.my.id/api/dramabox/vip';
+   <script>
+        // 1. Link API Sansekai yang dibungkus dengan jalan tikus (CORS Proxy: allorigins)
+        const targetAPI = encodeURIComponent('https://api.sansekai.my.id/api/dramabox/vip');
+        const apiEndpoint = `https://api.allorigins.win/raw?url=${targetAPI}`;
+        
         const wadahPoster = document.getElementById('tempat-poster-api');
 
         fetch(apiEndpoint)
@@ -75,29 +77,32 @@
                 return response.json();
             })
             .then(data => {
-                // Menghapus tulisan "Sedang menghubungi..."
                 wadahPoster.innerHTML = ''; 
                 
-                // Mengambil 10 data pertama saja
-                const daftarFilm = data.slice(0, 10);
+                // 2. Menuju ke laci data yang tepat (columnVoList ke-0, ambil bookList-nya)
+                // Kita ambil data dari kategori "Pilihan Mingguan"
+                const daftarDrama = data.columnVoList[0].bookList;
 
-                // Memasukkan gambar satu per satu ke dalam HTML
-                daftarFilm.forEach(film => {
+                // 3. Masukkan gambar satu per satu ke dalam HTML
+                daftarDrama.forEach(drama => {
                     const posterBaru = document.createElement('div');
                     posterBaru.className = 'poster';
                     
-                    if (film.image && film.image.original) {
-                        posterBaru.style.backgroundImage = `url('${film.image.original}')`;
+                    // Mengambil gambar dari "coverWap"
+                    if (drama.coverWap) {
+                        posterBaru.style.backgroundImage = `url('${drama.coverWap}')`;
                     } else {
                         posterBaru.style.backgroundColor = '#333'; 
                     }
                     
-                    posterBaru.title = film.name; 
+                    // Mengambil judul dari "bookName" dan sinopsis dari "introduction"
+                    posterBaru.title = drama.bookName + " - " + drama.introduction; 
+                    
                     wadahPoster.appendChild(posterBaru);
                 });
             })
             .catch(error => {
-                wadahPoster.innerHTML = '<p style="color: #E50914;">Gagal memuat API. Periksa koneksi internet.</p>';
+                wadahPoster.innerHTML = '<p style="color: #E50914;">Gagal memuat API dari Sansekai. Diblokir sistem keamanan.</p>';
                 console.error('Error:', error);
             });
     </script>
