@@ -16,7 +16,7 @@
         .hero { position: relative; width: 100%; padding-top: 80px; padding-bottom: 40px; display: flex; flex-direction: column; align-items: center; background-color: #000; }
         .hero-info { text-align: center; margin-bottom: 20px; z-index: 2; padding: 0 20px; }
         .hero-info h1 { font-size: 2.5rem; margin-bottom: 10px; color: #fff; transition: 0.3s; }
-        .hero-info p { color: #a3a3a3; font-size: 1rem; max-width: 800px; margin: 0 auto; transition: 0.3s; }
+        .hero-info p { color: #a3a3a3; font-size: 1rem; max-width: 800px; margin: 0 auto; transition: 0.3s; line-height: 1.6; }
         
         .video-container { width: 80%; max-width: 1000px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.8); border: 1px solid #333; transition: 0.5s; }
         video { width: 100%; display: block; outline: none; background-color: #000; }
@@ -66,64 +66,89 @@
     </div>
 
     <div class="row">
-        <h2>Drama Pilihan Mingguan ⚡</h2>
+        <h2>Drama Pilihan Mingguan 🔥</h2>
         <div class="posters" id="tempat-poster-api">
-            <p style="color: #a3a3a3;">Mencoba jalur alternatif ke server Sansekai...</p>
-        </div>
+            </div>
     </div>
 
     <script>
-        // KITA GANTI PROXY-NYA MENGGUNAKAN CORSProxy.io atau Codetabs
-        const targetAPI = encodeURIComponent('https://api.sansekai.my.id/api/dramabox/vip');
-        const apiEndpoint = `https://api.codetabs.com/v1/proxy?quest=${targetAPI}`;
+        // Data dari Sansekai sudah kita masukkan ke dalam variabel secara permanen
+        const daftarDrama = [
+            {
+                bookName: "Cerita Cinta Cheerleader Cantik",
+                coverWap: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000119583/41000119583.jpg",
+                introduction: "Jane adalah maskot tim cheerleader SMA yang sering dibully temannya. Karena rumahnya hancur oleh tornado, Jane terpaksa tinggal bersama musuh bebuyutannya sejak kecil, William, yang sudah lama tak ditemuinya."
+            },
+            {
+                bookName: "Ciumanmu Mengubah Duniaku",
+                coverWap: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000119254/41000119254.jpg",
+                introduction: "Sakit hati karena dikhianati oleh pacar dan sahabatnya sendiri, Gabrielle, seorang model, mengacaukan pesta pertunangan mereka. Takdir mempertemukan Gabrielle dengan Kyle, seorang CEO tampan."
+            },
+            {
+                bookName: "Saat Kebohongan Terungkap",
+                coverWap: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000117836/41000117836.jpg",
+                introduction: "Di kehidupan sebelumnya, Simon, anak angkat Keluarga Wijaya, menggunakan kemampuan ajaib untuk mentransmisikan suara hati dengan tujuan menjebak dan memecah belah hubungan Herman dengan semua orang."
+            },
+            {
+                bookName: "Gadis Lugu Penakluk Raja Mafia",
+                coverWap: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000110499/41000110499.jpg",
+                introduction: "Setelah diculik oleh raja mafia, Bella yang polos dipaksa untuk menandatangani kontrak untuk membayar biaya operasi ibunya. Namun, kontrak yang bernilai 7,5 miliar ini menuntut Bella melakukan lebih banyak."
+            },
+            {
+                bookName: "Cinta Beracun",
+                coverWap: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000118942/41000118942.jpg",
+                introduction: "Dengan hati yang penuh luka, Susan menahan rasa sedihnya dengan berfoya-foya dan menggoda semua pria di kalangan orang kaya. Sampai suatu saat, dirinya bertemu dengan seorang pengawal yang sangat tampan."
+            },
+            {
+                bookName: "Raja Kecurangan",
+                coverWap: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000116351/41000116351.jpg",
+                introduction: "Setelah menyaksikan kematian ayahnya karena berjudi, Leo belajar teknik curang dan memulai jalan anti-judi. Setelah selesai belajar, dia membujuk penggemar judi, Heru, untuk bergabung."
+            },
+            {
+                bookName: "Bangkit dan Berkuasa",
+                coverWap: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000107468/41000107468.jpg",
+                introduction: "Rendy mendanai pacarnya Lini menyelesaikan kuliah dan menyukseskan kariernya. Namun, Lini malah dengan kejam meminta putus dengan alasan bahwa mereka sudah berada di dunia yang berbeda."
+            },
+            {
+                bookName: "Membangun Cinta di Era 80-an",
+                coverWap: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000102847/41000102847.jpg",
+                introduction: "Nala, seorang mahasiswi modern melintasi ruang dan waktu kembali ke tahun 1980-an. Di sana, dia bertemu dengan Riko, seorang pemilik peternakan babi yang telah bercerai dan memiliki dua anak."
+            }
+        ];
         
         const wadahPoster = document.getElementById('tempat-poster-api');
         const judulUtama = document.getElementById('judul-utama');
         const deskripsiUtama = document.getElementById('deskripsi-utama');
         const videoUtama = document.getElementById('video-utama');
 
-        fetch(apiEndpoint)
-            .then(response => {
-                if (!response.ok) throw new Error('Gagal terhubung ke API');
-                return response.json();
-            })
-            .then(data => {
-                wadahPoster.innerHTML = ''; 
-                const daftarDrama = data.columnVoList[0].bookList;
+        // Menghapus isi wadah sebelum memasukkan data
+        wadahPoster.innerHTML = ''; 
 
-                daftarDrama.forEach(drama => {
-                    const wadahItem = document.createElement('div');
-                    wadahItem.className = 'poster-wrapper';
+        // Melakukan perulangan untuk menampilkan data yang sudah ditanam
+        daftarDrama.forEach(drama => {
+            const wadahItem = document.createElement('div');
+            wadahItem.className = 'poster-wrapper';
 
-                    const posterBaru = document.createElement('div');
-                    posterBaru.className = 'poster';
-                    
-                    if (drama.coverWap) {
-                        posterBaru.style.backgroundImage = `url('${drama.coverWap}')`;
-                    } else {
-                        posterBaru.style.backgroundColor = '#333'; 
-                    }
-                    
-                    const teksJudul = document.createElement('p');
-                    teksJudul.className = 'poster-title';
-                    teksJudul.innerText = drama.bookName; 
-                    
-                    posterBaru.addEventListener('click', () => {
-                        judulUtama.innerText = drama.bookName;
-                        deskripsiUtama.innerText = drama.introduction || "Sinopsis belum tersedia.";
-                        videoUtama.poster = drama.coverWap;
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                    });
-                    
-                    wadahItem.appendChild(posterBaru);
-                    wadahItem.appendChild(teksJudul);
-                    wadahPoster.appendChild(wadahItem);
-                });
-            })
-            .catch(error => {
-                wadahPoster.innerHTML = '<p style="color: #E50914;">Gagal mengambil data. Server Sansekai memiliki sistem Anti-Robot (Cloudflare) yang ketat.</p>';
-                console.error('Error:', error);
+            const posterBaru = document.createElement('div');
+            posterBaru.className = 'poster';
+            posterBaru.style.backgroundImage = `url('${drama.coverWap}')`;
+            
+            const teksJudul = document.createElement('p');
+            teksJudul.className = 'poster-title';
+            teksJudul.innerText = drama.bookName; 
+            
+            // Fitur klik untuk mengubah Banner Utama
+            posterBaru.addEventListener('click', () => {
+                judulUtama.innerText = drama.bookName;
+                deskripsiUtama.innerText = drama.introduction;
+                videoUtama.poster = drama.coverWap;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
+            
+            wadahItem.appendChild(posterBaru);
+            wadahItem.appendChild(teksJudul);
+            wadahPoster.appendChild(wadahItem);
+        });
     </script>
 
 </body>
