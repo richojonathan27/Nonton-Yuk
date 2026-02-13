@@ -18,7 +18,7 @@
         .hero-info h1 { font-size: 2.5rem; margin-bottom: 10px; color: #fff; transition: 0.3s; }
         .hero-info p { color: #a3a3a3; font-size: 1rem; max-width: 800px; margin: 0 auto; transition: 0.3s; line-height: 1.6; }
         
-        .video-container { width: 80%; max-width: 1000px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.8); border: 1px solid #333; transition: 0.5s; }
+        .video-container { width: 80%; max-width: 1000px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.8); border: 1px solid #333; transition: 0.5s; background-color: #000; }
         video { width: 100%; display: block; outline: none; background-color: #000; }
         
         .row { padding: 20px 4%; margin-top: 20px; }
@@ -54,13 +54,12 @@
 
     <div class="hero">
         <div class="hero-info">
-            <h1 id="judul-utama">Big Buck Bunny</h1>
-            <p id="deskripsi-utama">Saksikan petualangan kelinci raksasa yang lucu dalam film animasi pendek ini. Coba klik poster di bawah ini!</p>
+            <h1 id="judul-utama">Selamat Datang di StreamFlix</h1>
+            <p id="deskripsi-utama">Pilih dan klik salah satu drama di bawah ini untuk mulai menonton!</p>
         </div>
         
         <div class="video-container">
-            <video id="video-utama" controls poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg">
-                <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+            <video id="video-utama" controls poster="https://images.unsplash.com/photo-1574267432553-4b4628081524?auto=format&fit=crop&w=1000&q=80">
             </video>
         </div>
     </div>
@@ -72,47 +71,37 @@
     </div>
 
     <script>
-        // Data dari Sansekai sudah kita masukkan ke dalam variabel secara permanen
+        // Perhatikan ada tambahan "videoUrl" di setiap drama
         const daftarDrama = [
             {
                 bookName: "Cerita Cinta Cheerleader Cantik",
                 coverWap: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000119583/41000119583.jpg",
-                introduction: "Jane adalah maskot tim cheerleader SMA yang sering dibully temannya. Karena rumahnya hancur oleh tornado, Jane terpaksa tinggal bersama musuh bebuyutannya sejak kecil, William, yang sudah lama tak ditemuinya."
+                introduction: "Jane adalah maskot tim cheerleader SMA yang sering dibully temannya. Karena rumahnya hancur oleh tornado, Jane terpaksa tinggal bersama musuh bebuyutannya.",
+                videoUrl: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
             },
             {
                 bookName: "Ciumanmu Mengubah Duniaku",
                 coverWap: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000119254/41000119254.jpg",
-                introduction: "Sakit hati karena dikhianati oleh pacar dan sahabatnya sendiri, Gabrielle, seorang model, mengacaukan pesta pertunangan mereka. Takdir mempertemukan Gabrielle dengan Kyle, seorang CEO tampan."
+                introduction: "Sakit hati karena dikhianati oleh pacar dan sahabatnya sendiri, Gabrielle, seorang model, mengacaukan pesta pertunangan mereka. Takdir mempertemukan Gabrielle dengan Kyle.",
+                videoUrl: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
             },
             {
                 bookName: "Saat Kebohongan Terungkap",
                 coverWap: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000117836/41000117836.jpg",
-                introduction: "Di kehidupan sebelumnya, Simon, anak angkat Keluarga Wijaya, menggunakan kemampuan ajaib untuk mentransmisikan suara hati dengan tujuan menjebak dan memecah belah hubungan Herman dengan semua orang."
+                introduction: "Di kehidupan sebelumnya, Simon, anak angkat Keluarga Wijaya, menggunakan kemampuan ajaib untuk mentransmisikan suara hati dengan tujuan menjebak dan memecah belah hubungan Herman.",
+                videoUrl: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"
             },
             {
                 bookName: "Gadis Lugu Penakluk Raja Mafia",
                 coverWap: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000110499/41000110499.jpg",
-                introduction: "Setelah diculik oleh raja mafia, Bella yang polos dipaksa untuk menandatangani kontrak untuk membayar biaya operasi ibunya. Namun, kontrak yang bernilai 7,5 miliar ini menuntut Bella melakukan lebih banyak."
-            },
-            {
-                bookName: "Cinta Beracun",
-                coverWap: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000118942/41000118942.jpg",
-                introduction: "Dengan hati yang penuh luka, Susan menahan rasa sedihnya dengan berfoya-foya dan menggoda semua pria di kalangan orang kaya. Sampai suatu saat, dirinya bertemu dengan seorang pengawal yang sangat tampan."
-            },
-            {
-                bookName: "Raja Kecurangan",
-                coverWap: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000116351/41000116351.jpg",
-                introduction: "Setelah menyaksikan kematian ayahnya karena berjudi, Leo belajar teknik curang dan memulai jalan anti-judi. Setelah selesai belajar, dia membujuk penggemar judi, Heru, untuk bergabung."
+                introduction: "Setelah diculik oleh raja mafia, Bella yang polos dipaksa untuk menandatangani kontrak untuk membayar biaya operasi ibunya.",
+                videoUrl: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
             },
             {
                 bookName: "Bangkit dan Berkuasa",
                 coverWap: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000107468/41000107468.jpg",
-                introduction: "Rendy mendanai pacarnya Lini menyelesaikan kuliah dan menyukseskan kariernya. Namun, Lini malah dengan kejam meminta putus dengan alasan bahwa mereka sudah berada di dunia yang berbeda."
-            },
-            {
-                bookName: "Membangun Cinta di Era 80-an",
-                coverWap: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000102847/41000102847.jpg",
-                introduction: "Nala, seorang mahasiswi modern melintasi ruang dan waktu kembali ke tahun 1980-an. Di sana, dia bertemu dengan Riko, seorang pemilik peternakan babi yang telah bercerai dan memiliki dua anak."
+                introduction: "Rendy mendanai pacarnya Lini menyelesaikan kuliah dan menyukseskan kariernya. Namun, Lini malah dengan kejam meminta putus.",
+                videoUrl: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4"
             }
         ];
         
@@ -121,10 +110,8 @@
         const deskripsiUtama = document.getElementById('deskripsi-utama');
         const videoUtama = document.getElementById('video-utama');
 
-        // Menghapus isi wadah sebelum memasukkan data
         wadahPoster.innerHTML = ''; 
 
-        // Melakukan perulangan untuk menampilkan data yang sudah ditanam
         daftarDrama.forEach(drama => {
             const wadahItem = document.createElement('div');
             wadahItem.className = 'poster-wrapper';
@@ -137,11 +124,22 @@
             teksJudul.className = 'poster-title';
             teksJudul.innerText = drama.bookName; 
             
-            // Fitur klik untuk mengubah Banner Utama
+            // --- INI ADALAH KUNCI AGAR VIDEO BERGANTI ---
             posterBaru.addEventListener('click', () => {
+                // 1. Ganti Teks
                 judulUtama.innerText = drama.bookName;
                 deskripsiUtama.innerText = drama.introduction;
+                
+                // 2. Ganti Poster Video
                 videoUtama.poster = drama.coverWap;
+                
+                // 3. Masukkan URL Video yang baru
+                videoUtama.src = drama.videoUrl;
+                
+                // 4. (Opsional) Otomatis putar videonya setelah diklik
+                // videoUtama.play(); 
+                
+                // 5. Scroll ke atas
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
             
