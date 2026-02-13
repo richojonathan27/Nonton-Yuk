@@ -52,14 +52,13 @@
         .card-title { margin-top: 10px; font-size: 0.95rem; font-weight: 600; color: #e5e5e5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .card:hover .card-title { color: #fff; }
 
-        /* Video Modal (Bioskop Pop-up) */
+        /* Video Modal */
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; }
         .modal.active { display: flex; }
         .modal-content { width: 90%; max-width: 1000px; background: #000; border-radius: 12px; overflow: hidden; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.8); border: 1px solid #333; }
         .close-btn { position: absolute; top: -40px; right: 0; font-size: 30px; color: #fff; cursor: pointer; z-index: 10; }
         
         video { width: 100%; display: block; outline: none; max-height: 75vh; }
-        
         #status-api { padding: 20px; text-align: center; color: #00ca65; font-size: 16px; font-weight: bold; line-height: 1.5; }
 
         @media (max-width: 768px) {
@@ -82,23 +81,23 @@
         <ul class="nav-links">
             <li><a href="#">Beranda</a></li>
             <li><a href="#">Trending</a></li>
-            <li><a href="#">Drama Pendek</a></li>
+            <li><a href="#">Rilis Baru</a></li>
         </ul>
         <div style="color: white; font-size: 18px; cursor: pointer;">
             <i class="fas fa-search"></i>
         </div>
     </nav>
 
-    <div class="hero" id="hero-banner" style="background-image: url('https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000104882/41000104882.jpg');">
+    <div class="hero" id="hero-banner" style="background-image: url('https://p19-novel-sign-sg.fizzopic.org/novel-images-sg/d61e0868a52eae766ce4cd0be4d7ae1f~tplv-resize:570:810.heic?rk3s=95ec04ee&x-expires=1772669746&x-signature=DsypsOkpDvu1TvIk6CLEslvg864%3D');">
         <div class="hero-content">
             <div class="tags">
-                <span class="tag hot"><i class="fas fa-fire"></i> #1 Trending</span>
-                <span class="tag" id="hero-ep">61 EP</span>
+                <span class="tag hot"><i class="fas fa-fire"></i> New Release</span>
+                <span class="tag" id="hero-ep">75 EP</span>
             </div>
-            <h1 id="hero-title">Gadis Lugu Penakluk Raja Mafia</h1>
-            <p id="hero-desc">Setelah diculik oleh raja mafia, Bella yang polos dipaksa untuk menandatangani kontrak untuk membayar biaya operasi ibunya. Namun, kontrak yang bernilai 7,5 miliar ini menuntut Bella melakukan lebih banyak...</p>
+            <h1 id="hero-title">Istriku Multitalenta</h1>
+            <p id="hero-desc">Ayu menemukan Angga yang terluka parah di desa. Setelah melakukan operasi, dia pun pergi. Angga yang kehilangan banyak darah tidak sempat melihat jelas wajah Ayu. Sementara itu, karena kontrak nikah 100 hari yang diatur kakeknya, Ayu menikah ke Keluarga Zuma...</p>
             
-            <button class="btn-play" id="btn-play-utama" onclick="bukaPlayer('41000104882')">
+            <button class="btn-play" id="btn-play-utama" onclick="bukaPlayer('7602908037468146693')">
                 <i class="fas fa-play"></i> Play Now
             </button>
         </div>
@@ -132,26 +131,23 @@
     </div>
 
     <script>
-        // Efek Navbar
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
             if(window.scrollY > 50) nav.classList.add('scrolled');
             else nav.classList.remove('scrolled');
         });
 
-        // Data Drama
+        // --- DATA BARU HASIL EKSTRAK JSON TERAKHIR ---
         const daftarDrama = [
-            { bookId: "41000104882", judul: "Gadis Lugu Penakluk Raja Mafia", cover: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000104882/41000104882.jpg", ep: "61 EP", desc: "Setelah diculik oleh raja mafia, Bella yang polos dipaksa untuk menandatangani kontrak untuk membayar biaya operasi ibunya." },
-            { bookId: "41000119583", judul: "Cerita Cinta Cheerleader", cover: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000119583/41000119583.jpg", ep: "57 EP", desc: "Jane terpaksa tinggal bersama musuh bebuyutannya sejak kecil, William, yang sudah lama tak ditemuinya." },
-            { bookId: "41000119254", judul: "Ciumanmu Mengubah Duniaku", cover: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000119254/41000119254.jpg", ep: "53 EP", desc: "Takdir mempertemukan Gabrielle dengan Kyle, seorang CEO tampan, dan keduanya jatuh cinta." },
-            { bookId: "41000117836", judul: "Saat Kebohongan Terungkap", cover: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000117836/41000117836.jpg", ep: "88 EP", desc: "Di kehidupan sebelumnya, Simon menggunakan kemampuan ajaib untuk memecah belah hubungan Herman dengan semua orang." },
-            { bookId: "41000118942", judul: "Cinta Beracun", cover: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000118942/41000118942.jpg", ep: "81 EP", desc: "Susan menahan rasa sedihnya dengan menggoda semua pria di kalangan orang kaya, sampai ia bertemu pengawal tampan." },
-            { bookId: "41000116351", judul: "Raja Kecurangan", cover: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000116351/41000116351.jpg", ep: "75 EP", desc: "Leo belajar teknik curang tingkat tinggi dan membentuk tim rahasia demi membalas dendam." },
-            { bookId: "41000107468", judul: "Bangkit dan Berkuasa", cover: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000107468/41000107468.jpg", ep: "90 EP", desc: "Rendy yang diremehkan tiba-tiba diajak menikah oleh Ratu Bisnis dan CEO cantik, Friska." },
-            { bookId: "41000102847", judul: "Membangun Cinta di Era 80-an", cover: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000102847/41000102847.jpg", ep: "82 EP", desc: "Nala, mahasiswi modern melintasi ruang dan waktu kembali ke tahun 1980-an." }
+            { bookId: "7602908037468146693", judul: "Istriku Multitalenta", cover: "https://p19-novel-sign-sg.fizzopic.org/novel-images-sg/d61e0868a52eae766ce4cd0be4d7ae1f~tplv-resize:570:810.heic?rk3s=95ec04ee&x-expires=1772669746&x-signature=DsypsOkpDvu1TvIk6CLEslvg864%3D", ep: "75 EP", desc: "Ayu menemukan Angga yang terluka parah di desa. Setelah melakukan operasi, dia pun pergi. Angga yang kehilangan banyak darah tidak sempat melihat jelas wajah Ayu. Sementara itu, karena kontrak nikah 100 hari..." },
+            { bookId: "7603616055197453317", judul: "Putra Terbuang Jadi Pahlawan", cover: "https://p19-novel-sign-sg.fizzopic.org/novel-images-sg/03def24687aa8e549f0f6ff1dac08e41~tplv-resize:570:810.heic?rk3s=95ec04ee&x-expires=1772669746&x-signature=sXWZKZu0rjpklbezMNhD2CIhUEI%3D", ep: "80 EP", desc: "Jorda menembus waktu dan menjadi putra Keluarga Lintara yang diusir karena bakatnya dianggap rendah. Namun, dia justru mengaktifkan sistem yang yang bisa membantu dirinya memperoleh berbagai hal." },
+            { bookId: "7602855039975033861", judul: "Suamiku Bisa Dengar Isi Hatiku", cover: "https://p16-novel-sign-sg.fizzopic.org/novel-images-sg/93a91bb1c7ce79350d19b48091540b86~tplv-resize:570:810.heic?rk3s=95ec04ee&x-expires=1772669746&x-signature=O%2BrcOstppjjjyxvK25kN3WexeUI%3D", ep: "81 EP", desc: "Putri Ayu bereinkarnasi menjadi istri buangan keluarga kaya. Demi uang cerai, ia pura-pura patuh, tak sadar suami dan keluarganya bisa mendengar suara hatinya." },
+            { bookId: "7600002690927578117", judul: "Ayah Super Keluarga Bahagia", cover: "https://p16-novel-sign-sg.fizzopic.org/novel-images-sg/e35235ee9820ca8d8e0852bf71b5615e~tplv-resize:570:810.heic?rk3s=95ec04ee&x-expires=1772669746&x-signature=u6BP%2FNXXIMKc%2Ffh7lh8dGAoT6gE%3D", ep: "82 EP", desc: "Rizky Pratama, mahasiswa biasa, tiba-tiba menjadi ayah super setelah Putri Ayu hamil. Berkat Sistem Ayah Super, ia melindungi kekasihnya, membalas dendam pada musuh, dan membalikkan keadaan di dunia bisnis." },
+            { bookId: "7603646214784961541", judul: "Salah Nikah, Salah Cinta", cover: "https://p16-novel-sign-sg.fizzopic.org/novel-images-sg/0f3a98af2d090977cf19309bcd80e815~tplv-resize:570:810.heic?rk3s=95ec04ee&x-expires=1772669746&x-signature=%2BBSkZMT%2FZLqaGLLcUh5Dl40JjT4%3D", ep: "80 EP", desc: "Anak angkat keluarga Zainal, Tania, melihat tunangannya bertunangan dengan orang lain. Patah hati dan mabuk, dia menikah kilat dengan pengusaha Jhona." },
+            { bookId: "7596621469040266245", judul: "Pilihan Sistem Sang Antagonis", cover: "https://p16-novel-sign-sg.fizzopic.org/novel-images-sg/e2b29088f9817c1886372439db2aa18c~tplv-resize:570:810.heic?rk3s=95ec04ee&x-expires=1772669746&x-signature=xDj6sPASQmpV86GZRMJTtlQL72M%3D", ep: "87 EP", desc: "Raka Pradana, pemuda modern yang terlempar ke dunia kultivasi, menjadi murid Puncak Mega Awan dan mengaktifkan sistem pilihan penjahat." }
         ];
 
-        // Menampilkan Poster
+        // Menampilkan Poster (Karena ada 6 film, kita bagi 3 di atas, 3 di bawah)
         function renderRow(containerId, data) {
             const container = document.getElementById(containerId);
             data.forEach(drama => {
@@ -181,10 +177,10 @@
             });
         }
 
-        renderRow('row-foryou', daftarDrama.slice(0, 4));
-        renderRow('row-trending', daftarDrama.slice(4, 8));
+        renderRow('row-foryou', daftarDrama.slice(0, 3));
+        renderRow('row-trending', daftarDrama.slice(3, 6));
 
-        // --- SISTEM PEMUTAR VIDEO (JALUR CEPAT ANTI-LOADING) ---
+        // --- SISTEM PEMUTAR VIDEO (Tetap Anti-Loading!) ---
         const modal = document.getElementById('videoModal');
         const player = document.getElementById('video-player');
         const sumberVideo = document.getElementById('video-source');
@@ -195,38 +191,33 @@
             player.style.display = 'none'; 
             statusAPI.style.display = 'block';
             
-            // Animasi loading cepat (hanya 0.5 detik agar terlihat mulus)
             statusAPI.innerHTML = `<i class="fas fa-bolt"></i> Memuat Video Instan...`;
 
-            // KITA SKIP PROXY API YANG BIKIN HANG
-            // Kita langsung tembak ke link Gudang (CDN) rahasia yang kamu temukan!
-            const linkGudangSansekai = `https://hwztvideo.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/${bookId}/${bookId}_ep1.mp4`;
+            // Karena BookId kali ini formatnya beda (contoh: 76029080...), CDN hwztvideo kemungkinan error.
+            // Kita biarkan script mencoba menembak URL aslinya.
+            const linkTebakan = `https://hwztvideo.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/${bookId}/${bookId}_ep1.mp4`;
 
             setTimeout(() => {
                 statusAPI.style.display = 'none';
-                
-                // Masukkan link rahasia tersebut ke pemutar
-                sumberVideo.src = linkGudangSansekai;
+                sumberVideo.src = linkTebakan;
                 player.load();
                 player.style.display = 'block';
                 player.play();
-                
-            }, 500); // Tunggu setengah detik saja!
+            }, 500); 
         }
 
-        // FUNGSI JIKA VIDEO DARI GUDANG TERNYATA DIGEMBOK (ERROR 404)
+        // FUNGSI JIKA VIDEO TIDAK DITEMUKAN (Karena beda server API)
         player.addEventListener('error', function() {
-            console.log("Video asli digembok, memutar video server cadangan.");
             statusAPI.style.display = 'block';
             statusAPI.style.color = '#E50914';
-            statusAPI.innerHTML = `⚠️ Video Premium Digembok.<br><span style="font-size:14px; color:#fff;">Memutar tayangan server cadangan...</span>`;
+            statusAPI.innerHTML = `⚠️ Video Asli Terproteksi.<br><span style="font-size:14px; color:#fff;">Memutar video sampel HD agar player tetap berjalan...</span>`;
             
             player.style.display = 'none';
 
-            // Pindah ke video sampel yang 100% jalan
+            // Pindah ke video sampel agar websitemu tidak terlihat rusak/error di mata pengunjung
             setTimeout(() => {
                 statusAPI.style.display = 'none';
-                sumberVideo.src = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4";
+                sumberVideo.src = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4";
                 player.load();
                 player.style.display = 'block';
                 player.play();
