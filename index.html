@@ -3,202 +3,257 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FreeDracin - Nonton Drama Gratis</title>
+    <title>Nonton Yuk by Smart</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
         
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: #f4f6f9; color: #333; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #0d0d0c; color: #ffffff; overflow-x: hidden; }
         
         /* Navbar */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
-        .logo { font-size: 24px; font-weight: 800; color: #1e1e1e; letter-spacing: -0.5px; }
-        .logo span { color: #00ca65; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 4%; background: linear-gradient(rgba(0,0,0,0.9), transparent); position: fixed; width: 100%; z-index: 100; transition: background 0.3s; }
+        nav.scrolled { background: rgba(13, 13, 12, 0.95); backdrop-filter: blur(10px); }
+        .logo { color: #fff; font-size: 24px; font-weight: 800; letter-spacing: 1px; }
+        .logo span { color: #E50914; }
+        .nav-links { display: flex; gap: 20px; list-style: none; font-size: 14px; font-weight: 500; }
+        .nav-links a { color: #e5e5e5; text-decoration: none; transition: 0.3s; }
+        .nav-links a:hover { color: #fff; }
         
-        .nav-menu { display: flex; gap: 25px; list-style: none; }
-        .nav-menu a { text-decoration: none; color: #555; font-weight: 500; transition: color 0.2s; }
-        .nav-menu a:hover { color: #00ca65; }
+        /* Hero Banner */
+        .hero { position: relative; height: 85vh; display: flex; align-items: center; padding: 0 4%; background-size: cover; background-position: center top; transition: background-image 0.5s ease-in-out; }
+        .hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, rgba(13, 13, 12, 0.9) 20%, transparent 80%), linear-gradient(to top, #0d0d0c 5%, transparent 40%); z-index: 1; }
         
-        .search-box { background: #f0f2f5; padding: 8px 15px; border-radius: 20px; display: flex; align-items: center; gap: 10px; }
-        .search-box input { border: none; background: transparent; outline: none; font-family: 'Poppins'; font-size: 14px; }
+        .hero-content { position: relative; z-index: 2; max-width: 600px; margin-top: 50px; }
+        .tags { display: flex; gap: 10px; margin-bottom: 15px; }
+        .tag { background: rgba(255,255,255,0.2); backdrop-filter: blur(5px); padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .tag.hot { background: #E50914; color: white; }
         
-        /* Container & Layout */
-        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 70% 28%; gap: 2%; }
+        .hero-content h1 { font-size: 3rem; font-weight: 800; line-height: 1.1; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .hero-content p { font-size: 1rem; color: #d1d5db; line-height: 1.5; margin-bottom: 25px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
         
-        /* Video Area */
-        .video-section { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-        .video-player { width: 100%; aspect-ratio: 16/9; background: #000; position: relative; }
-        video { width: 100%; height: 100%; object-fit: cover; }
-        
-        .video-info { padding: 25px; }
-        .video-title { font-size: 22px; font-weight: 700; margin-bottom: 10px; color: #111; }
-        .video-meta { display: flex; gap: 15px; color: #777; font-size: 13px; margin-bottom: 15px; }
-        .video-desc { font-size: 14px; color: #555; line-height: 1.6; }
+        .btn-play { background-color: #fff; color: #000; border: none; padding: 12px 30px; font-size: 1.1rem; font-weight: 700; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; }
+        .btn-play:hover { background-color: #d1d5db; transform: scale(1.05); }
 
-        /* Episode Area */
-        .episode-section { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); height: fit-content; }
-        .episode-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .episode-header h3 { font-size: 16px; font-weight: 600; }
-        .episode-header span { font-size: 12px; color: #777; }
+        /* Rows */
+        .row { padding: 10px 4% 30px; position: relative; z-index: 5; }
+        .row-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .row h2 { font-size: 1.3rem; font-weight: 700; color: #fff; }
         
-        .episode-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; max-height: 400px; overflow-y: auto; padding-right: 5px; }
-        .ep-btn { background: #f4f6f9; border: 1px solid #e1e5eb; border-radius: 6px; padding: 12px 0; text-align: center; cursor: pointer; font-weight: 600; color: #555; transition: 0.2s; font-size: 14px; }
-        .ep-btn:hover { background: #e8f7ed; border-color: #00ca65; color: #00ca65; }
-        .ep-btn.active { background: #00ca65; color: #fff; border-color: #00ca65; }
+        .slider { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 15px; scrollbar-width: none; scroll-behavior: smooth; }
+        .slider::-webkit-scrollbar { display: none; }
         
-        /* Pesan Status API */
-        #status-api { padding: 10px; text-align: center; font-size: 14px; color: #00ca65; font-weight: 500; display: none; }
+        .card { min-width: 160px; max-width: 160px; display: flex; flex-direction: column; cursor: pointer; }
+        .card-img-wrapper { position: relative; width: 100%; height: 230px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.4); }
+        .card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+        .card-img-wrapper:hover img { transform: scale(1.1); }
+        
+        .ep-badge { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.7); color: #fff; padding: 3px 6px; border-radius: 4px; font-size: 11px; font-weight: 700; backdrop-filter: blur(4px); }
+        .card-title { margin-top: 10px; font-size: 0.95rem; font-weight: 600; color: #e5e5e5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .card:hover .card-title { color: #fff; }
 
-        .episode-grid::-webkit-scrollbar { width: 5px; }
-        .episode-grid::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+        /* Video Modal (Bioskop Pop-up) */
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; }
+        .modal.active { display: flex; }
+        .modal-content { width: 90%; max-width: 1000px; background: #000; border-radius: 12px; overflow: hidden; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.8); border: 1px solid #333; }
+        .close-btn { position: absolute; top: -40px; right: 0; font-size: 30px; color: #fff; cursor: pointer; z-index: 10; }
+        
+        video { width: 100%; display: block; outline: none; max-height: 75vh; }
+        
+        /* Teks Indikator Loading API */
+        #status-api { padding: 20px; text-align: center; color: #facc15; font-size: 16px; font-weight: bold; line-height: 1.5; }
 
-        @media (max-width: 900px) {
-            .container { grid-template-columns: 100%; }
-            .nav-menu, .search-box { display: none; }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero-content h1 { font-size: 2rem; }
+            .hero { height: 70vh; }
+            .card { min-width: 130px; max-width: 130px; }
+            .card-img-wrapper { height: 190px; }
+            .close-btn { top: 10px; right: 10px; }
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">Free<span>Dracin</span></div>
-        <ul class="nav-menu">
+    <nav id="navbar">
+        <div style="display: flex; flex-direction: column;">
+            <div class="logo">Nonton <span>Yuk</span></div>
+            <span style="color: #9ca3af; font-size: 10px; font-weight: 600; letter-spacing: 1px; margin-top: -3px;">by : Smart</span>
+        </div>
+        <ul class="nav-links">
             <li><a href="#">Beranda</a></li>
-            <li><a href="#">Drama China</a></li>
-            <li><a href="#">Drakor</a></li>
+            <li><a href="#">Trending</a></li>
+            <li><a href="#">Drama Pendek</a></li>
         </ul>
-        <div class="search-box">
-            <i class="fas fa-search" style="color: #999;"></i>
-            <input type="text" placeholder="Cari drama...">
+        <div style="color: white; font-size: 18px; cursor: pointer;">
+            <i class="fas fa-search"></i>
         </div>
     </nav>
 
-    <div class="container">
-        <div class="video-section">
-            <div id="status-api">Memuat data dari server...</div>
-            <div class="video-player">
-                <video id="main-player" controls poster="https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000104882/41000104882.jpg">
+    <div class="hero" id="hero-banner" style="background-image: url('https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000104882/41000104882.jpg');">
+        <div class="hero-content">
+            <div class="tags">
+                <span class="tag hot"><i class="fas fa-fire"></i> #1 Trending</span>
+                <span class="tag" id="hero-ep">61 EP</span>
+            </div>
+            <h1 id="hero-title">Gadis Lugu Penakluk Raja Mafia</h1>
+            <p id="hero-desc">Setelah diculik oleh raja mafia, Bella yang polos dipaksa untuk menandatangani kontrak untuk membayar biaya operasi ibunya. Namun, kontrak yang bernilai 7,5 miliar ini menuntut Bella melakukan lebih banyak...</p>
+            
+            <button class="btn-play" id="btn-play-utama" onclick="bukaPlayer('41000104882')">
+                <i class="fas fa-play"></i> Play Now
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="row-header">
+            <h2>Rekomendasi VIP</h2>
+        </div>
+        <div class="slider" id="row-foryou"></div>
+    </div>
+
+    <div class="row">
+        <div class="row-header">
+            <h2>Pilihan Mingguan</h2>
+        </div>
+        <div class="slider" id="row-trending"></div>
+    </div>
+
+    <div class="modal" id="videoModal">
+        <div style="position: relative; width: 90%; max-width: 1000px;">
+            <i class="fas fa-times close-btn" onclick="tutupPlayer()"></i>
+            <div class="modal-content">
+                <div id="status-api">Membuka Player...</div>
+                <video id="video-player" controls>
                     <source id="video-source" src="" type="video/mp4">
-                    Browser Anda tidak mendukung pemutar video.
+                    Browser Anda tidak mendukung HTML5 video.
                 </video>
             </div>
-            <div class="video-info">
-                <h1 class="video-title" id="judul-drama">Gadis Lugu Penakluk Raja Mafia - Episode 1</h1>
-                <div class="video-meta">
-                    <span><i class="fas fa-star" style="color: #ffc107;"></i> 9.8</span>
-                    <span><i class="fas fa-eye"></i> Sedang Tren</span>
-                </div>
-                <p class="video-desc" id="deskripsi-drama">Setelah diculik oleh raja mafia, Bella yang polos dipaksa untuk menandatangani kontrak...</p>
-            </div>
-        </div>
-
-        <div class="episode-section">
-            <div class="episode-header">
-                <h3>Daftar Episode</h3>
-                <span id="total-episode">Memuat...</span>
-            </div>
-            <div class="episode-grid" id="daftar-episode">
-                </div>
         </div>
     </div>
 
     <script>
-        // 1. Tentukan ID Drama yang mau kita muat (Dari gambar yang kamu temukan)
-        const currentBookId = "41000104882"; // Contoh ID Drama: Gadis Lugu
-        
-        // 2. Siapkan elemen HTML yang akan diubah
-        const wadahEpisode = document.getElementById('daftar-episode');
-        const player = document.getElementById('main-player');
-        const sumberVideo = document.getElementById('video-source');
-        const judul = document.getElementById('judul-drama');
-        const statusAPI = document.getElementById('status-api');
-        const totalEpText = document.getElementById('total-episode');
+        // --- 1. EFEK SCROLL NAVBAR ---
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if(window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
 
-        // 3. FUNGSI UNTUK MEMANGGIL API (Menggunakan pola yang kamu temukan)
-        // Kita menggunakan proxy agar tidak diblokir CORS
-        const targetAPI = encodeURIComponent(`https://api.sansekai.my.id/api/dramabox/allepisode?bookId=${currentBookId}`);
-        const apiEndpoint = `https://api.allorigins.win/raw?url=${targetAPI}`;
+        // --- 2. DATA KATALOG DRAMA (Berdasarkan API Sansekai) ---
+        const daftarDrama = [
+            { bookId: "41000104882", judul: "Gadis Lugu Penakluk Raja Mafia", cover: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000104882/41000104882.jpg", ep: "61 EP", desc: "Setelah diculik oleh raja mafia, Bella yang polos dipaksa untuk menandatangani kontrak untuk membayar biaya operasi ibunya." },
+            { bookId: "41000119583", judul: "Cerita Cinta Cheerleader", cover: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000119583/41000119583.jpg", ep: "57 EP", desc: "Jane terpaksa tinggal bersama musuh bebuyutannya sejak kecil, William, yang sudah lama tak ditemuinya." },
+            { bookId: "41000119254", judul: "Ciumanmu Mengubah Duniaku", cover: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000119254/41000119254.jpg", ep: "53 EP", desc: "Takdir mempertemukan Gabrielle dengan Kyle, seorang CEO tampan, dan keduanya jatuh cinta." },
+            { bookId: "41000117836", judul: "Saat Kebohongan Terungkap", cover: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000117836/41000117836.jpg", ep: "88 EP", desc: "Di kehidupan sebelumnya, Simon menggunakan kemampuan ajaib untuk memecah belah hubungan Herman dengan semua orang." },
+            { bookId: "41000118942", judul: "Cinta Beracun", cover: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000118942/41000118942.jpg", ep: "81 EP", desc: "Susan menahan rasa sedihnya dengan menggoda semua pria di kalangan orang kaya, sampai ia bertemu pengawal tampan." },
+            { bookId: "41000116351", judul: "Raja Kecurangan", cover: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000116351/41000116351.jpg", ep: "75 EP", desc: "Leo belajar teknik curang tingkat tinggi dan membentuk tim rahasia demi membalas dendam." },
+            { bookId: "41000107468", judul: "Bangkit dan Berkuasa", cover: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000107468/41000107468.jpg", ep: "90 EP", desc: "Rendy yang diremehkan tiba-tiba diajak menikah oleh Ratu Bisnis dan CEO cantik, Friska." },
+            { bookId: "41000102847", judul: "Membangun Cinta di Era 80-an", cover: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000102847/41000102847.jpg", ep: "82 EP", desc: "Nala, mahasiswi modern melintasi ruang dan waktu kembali ke tahun 1980-an." }
+        ];
 
-        statusAPI.style.display = "block";
-        statusAPI.innerText = "⏳ Sedang menghubungi server (allepisode)...";
-
-        // 4. Proses Fetch Data
-        fetch(apiEndpoint)
-            .then(response => {
-                if (!response.ok) throw new Error("Gagal mengambil daftar episode");
-                return response.json();
-            })
-            .then(data => {
-                statusAPI.innerText = "✅ Berhasil memuat daftar episode!";
-                setTimeout(() => { statusAPI.style.display = "none"; }, 2000);
+        // --- 3. FUNGSI MENAMPILKAN POSTER ---
+        function renderRow(containerId, data) {
+            const container = document.getElementById(containerId);
+            data.forEach(drama => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-img-wrapper">
+                        <img src="${drama.cover}" alt="${drama.judul}">
+                        <div class="ep-badge">${drama.ep}</div>
+                    </div>
+                    <p class="card-title">${drama.judul}</p>
+                `;
                 
-                wadahEpisode.innerHTML = ""; // Bersihkan loading
-                
-                // Asumsi data yang dikembalikan berupa array daftar episode
-                // Karena kita tidak tahu persis bentuk array-nya, kita buat simulasi jika API gagal
-                let daftarEpisode = data.data || data.episodes || data; 
-                
-                // --- FALLBACK JIKA PROXY API DIBLOKIR ---
-                // Jika data kosong atau proxy gagal, kita buatkan data cadangan
-                if(!daftarEpisode || daftarEpisode.length === 0) {
-                     daftarEpisode = [];
-                     for(let i=1; i<=61; i++) {
-                         daftarEpisode.push({
-                             episode: i,
-                             // Ini adalah format URL asli dari server hwztvideo
-                             url: `https://hwztvideo.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/${currentBookId}/${currentBookId}_ep${i}.mp4`
-                         });
-                     }
-                }
-
-                totalEpText.innerText = `Total: ${daftarEpisode.length} EP`;
-
-                // 5. Membuat Tombol untuk Setiap Episode
-                daftarEpisode.forEach((epData, index) => {
-                    const noEpisode = epData.episode || (index + 1);
-                    const linkVideo = epData.url || epData.videoUrl;
-
-                    const tombol = document.createElement('div');
-                    tombol.className = 'ep-btn';
-                    if (index === 0) tombol.classList.add('active'); // Aktifkan eps 1 di awal
-                    tombol.innerText = noEpisode;
-
-                    // Saat tombol diklik:
-                    tombol.addEventListener('click', () => {
-                        // Ubah warna tombol
-                        document.querySelectorAll('.ep-btn').forEach(btn => btn.classList.remove('active'));
-                        tombol.classList.add('active');
-                        
-                        // Ubah Teks Judul
-                        judul.innerText = `Gadis Lugu Penakluk Raja Mafia - Episode ${noEpisode}`;
-                        
-                        // Putar Video dari URL server hwztvideo
-                        if(linkVideo) {
-                            sumberVideo.src = linkVideo;
-                            player.load();
-                            player.play();
-                        } else {
-                            alert("Link video untuk episode ini belum tersedia.");
-                        }
-                    });
-
-                    wadahEpisode.appendChild(tombol);
+                // Jika Poster Diklik, ubah Banner Utama
+                card.addEventListener('click', () => {
+                    document.getElementById('hero-banner').style.backgroundImage = `url('${drama.cover}')`;
+                    document.getElementById('hero-title').innerText = drama.judul;
+                    document.getElementById('hero-desc').innerText = drama.desc;
+                    document.getElementById('hero-ep').innerText = drama.ep;
+                    
+                    // Ganti fungsi tombol Play Now dengan ID Drama yang baru
+                    const btnPlay = document.getElementById('btn-play-utama');
+                    btnPlay.setAttribute('onclick', `bukaPlayer('${drama.bookId}')`);
+                    
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
                 
-                // Otomatis muat video episode 1 saat halaman pertama dibuka
-                if(daftarEpisode.length > 0) {
-                    sumberVideo.src = daftarEpisode[0].url || daftarEpisode[0].videoUrl;
-                    player.load();
-                }
-
-            })
-            .catch(error => {
-                statusAPI.style.color = "red";
-                statusAPI.innerText = "❌ Proxy diblokir. Menggunakan data cadangan.";
-                console.error("Error Fetch:", error);
-                // Fungsi fallback akan memuat data otomatis seperti di atas jika ini terjadi
+                container.appendChild(card);
             });
+        }
+
+        renderRow('row-foryou', daftarDrama.slice(0, 4));
+        renderRow('row-trending', daftarDrama.slice(4, 8));
+
+        // --- 4. LOGIKA PEMANGGILAN API VIDEO ---
+        const modal = document.getElementById('videoModal');
+        const player = document.getElementById('video-player');
+        const sumberVideo = document.getElementById('video-source');
+        const statusAPI = document.getElementById('status-api');
+
+        function bukaPlayer(bookId) {
+            modal.classList.add('active');
+            player.style.display = 'none'; // Sembunyikan video saat loading
+            statusAPI.style.display = 'block';
+            statusAPI.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Menghubungi Server Video Sansekai...<br><span style="font-size:12px; color:#aaa;">ID: ${bookId}</span>`;
+
+            // Membuat Rute Proxy untuk menembus CORS ke API allepisode
+            const targetAPI = encodeURIComponent(`https://api.sansekai.my.id/api/dramabox/allepisode?bookId=${bookId}`);
+            const proxyUrl = `https://api.allorigins.win/raw?url=${targetAPI}`;
+
+            // Tarik Data Video
+            fetch(proxyUrl)
+                .then(response => {
+                    if (!response.ok) throw new Error("Terhalang Cloudflare/CORS");
+                    return response.json();
+                })
+                .then(data => {
+                    // Cek apakah server mengembalikan daftar episode
+                    let daftarEp = data.data || data.episodes || data;
+                    
+                    if(daftarEp && daftarEp.length > 0) {
+                        statusAPI.innerHTML = "✅ Berhasil! Mengambil Episode 1...";
+                        
+                        // Ekstrak URL Video Episode Pertama
+                        let linkVideoAsli = daftarEp[0].url || daftarEp[0].videoUrl || `https://hwztvideo.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/${bookId}/${bookId}_ep1.mp4`;
+                        
+                        setTimeout(() => {
+                            statusAPI.style.display = 'none';
+                            sumberVideo.src = linkVideoAsli;
+                            player.load();
+                            player.style.display = 'block';
+                            player.play();
+                        }, 1500);
+
+                    } else {
+                        throw new Error("Data episode kosong");
+                    }
+                })
+                .catch(error => {
+                    // JIKA SERVER SANSEKAI MEMBLOKIR (Sangat sering terjadi di web gratis)
+                    // Kita akan menggunakan tebakan pintar format URL "hwztvideo" yang kamu temukan sebelumnya
+                    console.log("Fallback karena API terblokir: ", error);
+                    statusAPI.innerHTML = `⚠️ Sistem keamanan server asli menolak (Cloudflare).<br><span style="font-size:14px; color:#fff;">Memutar URL tebakan pintar (hwztvideo)...</span>`;
+                    
+                    setTimeout(() => {
+                        statusAPI.style.display = 'none';
+                        // Menggunakan pola link CDN asli yang kamu temukan di Network Tab!
+                        sumberVideo.src = `https://hwztvideo.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/${bookId}/${bookId}_ep1.mp4`;
+                        player.load();
+                        player.style.display = 'block';
+                        player.play();
+                    }, 2500);
+                });
+        }
+
+        function tutupPlayer() {
+            modal.classList.remove('active');
+            player.pause();
+            player.style.display = 'none';
+            sumberVideo.src = ""; // Kosongkan agar suara tidak bocor
+        }
     </script>
 </body>
 </html>
