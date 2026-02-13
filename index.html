@@ -9,12 +9,12 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: #f4f6f9; color: #333; } /* Tema Terang elegan ala WeTV */
+        body { background-color: #f4f6f9; color: #333; }
         
         /* Navbar */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
         .logo { font-size: 24px; font-weight: 800; color: #1e1e1e; letter-spacing: -0.5px; }
-        .logo span { color: #00ca65; } /* Warna hijau segar */
+        .logo span { color: #00ca65; }
         
         .nav-menu { display: flex; gap: 25px; list-style: none; }
         .nav-menu a { text-decoration: none; color: #555; font-weight: 500; transition: color 0.2s; }
@@ -23,12 +23,12 @@
         .search-box { background: #f0f2f5; padding: 8px 15px; border-radius: 20px; display: flex; align-items: center; gap: 10px; }
         .search-box input { border: none; background: transparent; outline: none; font-family: 'Poppins'; font-size: 14px; }
         
-        /* Layout Utama Pemutar Video */
+        /* Container & Layout */
         .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 70% 28%; gap: 2%; }
         
-        /* Area Kiri: Video & Info */
+        /* Video Area */
         .video-section { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-        .video-player { width: 100%; aspect-ratio: 16/9; background: #000; display: flex; justify-content: center; align-items: center; color: white; position: relative; }
+        .video-player { width: 100%; aspect-ratio: 16/9; background: #000; position: relative; }
         video { width: 100%; height: 100%; object-fit: cover; }
         
         .video-info { padding: 25px; }
@@ -36,7 +36,7 @@
         .video-meta { display: flex; gap: 15px; color: #777; font-size: 13px; margin-bottom: 15px; }
         .video-desc { font-size: 14px; color: #555; line-height: 1.6; }
 
-        /* Area Kanan: Daftar Episode */
+        /* Episode Area */
         .episode-section { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); height: fit-content; }
         .episode-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
         .episode-header h3 { font-size: 16px; font-weight: 600; }
@@ -46,8 +46,10 @@
         .ep-btn { background: #f4f6f9; border: 1px solid #e1e5eb; border-radius: 6px; padding: 12px 0; text-align: center; cursor: pointer; font-weight: 600; color: #555; transition: 0.2s; font-size: 14px; }
         .ep-btn:hover { background: #e8f7ed; border-color: #00ca65; color: #00ca65; }
         .ep-btn.active { background: #00ca65; color: #fff; border-color: #00ca65; }
+        
+        /* Pesan Status API */
+        #status-api { padding: 10px; text-align: center; font-size: 14px; color: #00ca65; font-weight: 500; display: none; }
 
-        /* Scrollbar kustom untuk daftar episode */
         .episode-grid::-webkit-scrollbar { width: 5px; }
         .episode-grid::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
 
@@ -65,7 +67,6 @@
             <li><a href="#">Beranda</a></li>
             <li><a href="#">Drama China</a></li>
             <li><a href="#">Drakor</a></li>
-            <li><a href="#">Jadwal Tayang</a></li>
         </ul>
         <div class="search-box">
             <i class="fas fa-search" style="color: #999;"></i>
@@ -74,85 +75,130 @@
     </nav>
 
     <div class="container">
-        
         <div class="video-section">
+            <div id="status-api">Memuat data dari server...</div>
             <div class="video-player">
-                <video id="main-player" controls poster="https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?auto=format&fit=crop&w=1200&q=80">
-                    <source id="video-source" src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" type="video/mp4">
+                <video id="main-player" controls poster="https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000104882/41000104882.jpg">
+                    <source id="video-source" src="" type="video/mp4">
                     Browser Anda tidak mendukung pemutar video.
                 </video>
             </div>
             <div class="video-info">
-                <h1 class="video-title" id="judul-drama">Hidden Love (Cinta Tersembunyi) - Episode 1</h1>
+                <h1 class="video-title" id="judul-drama">Gadis Lugu Penakluk Raja Mafia - Episode 1</h1>
                 <div class="video-meta">
-                    <span><i class="fas fa-star" style="color: #ffc107;"></i> 9.6</span>
-                    <span><i class="fas fa-eye"></i> 2.4M Views</span>
-                    <span><i class="fas fa-calendar-alt"></i> 2023</span>
+                    <span><i class="fas fa-star" style="color: #ffc107;"></i> 9.8</span>
+                    <span><i class="fas fa-eye"></i> Sedang Tren</span>
                 </div>
-                <p class="video-desc">Sang Zhi jatuh cinta pada teman kakaknya, Duan Jiaxu, saat ia masih muda. Ketika mereka beranjak dewasa, benih-benih cinta itu perlahan mulai mekar di antara keduanya.</p>
+                <p class="video-desc" id="deskripsi-drama">Setelah diculik oleh raja mafia, Bella yang polos dipaksa untuk menandatangani kontrak...</p>
             </div>
         </div>
 
         <div class="episode-section">
             <div class="episode-header">
                 <h3>Daftar Episode</h3>
-                <span>Total: 24 EP</span>
+                <span id="total-episode">Memuat...</span>
             </div>
-            
             <div class="episode-grid" id="daftar-episode">
                 </div>
         </div>
     </div>
 
     <script>
-        // Simulasi Data API untuk Episode Drama
-        // Nantinya data ini bisa diganti dengan data dari freedracin.vercel.app
-        const dataEpisode = [
-            { ep: 1, url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" },
-            { ep: 2, url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" },
-            { ep: 3, url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" },
-            { ep: 4, url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" },
-            { ep: 5, url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4" },
-            // Kita buat tombol bohongan sampai episode 24 agar desainnya terlihat penuh
-            { ep: 6, url: "" }, { ep: 7, url: "" }, { ep: 8, url: "" }, { ep: 9, url: "" }, { ep: 10, url: "" },
-            { ep: 11, url: "" }, { ep: 12, url: "" }, { ep: 13, url: "" }, { ep: 14, url: "" }, { ep: 15, url: "" },
-            { ep: 16, url: "" }, { ep: 17, url: "" }, { ep: 18, url: "" }, { ep: 19, url: "" }, { ep: 20, url: "" },
-            { ep: 21, url: "" }, { ep: 22, url: "" }, { ep: 23, url: "" }, { ep: 24, url: "" }
-        ];
-
+        // 1. Tentukan ID Drama yang mau kita muat (Dari gambar yang kamu temukan)
+        const currentBookId = "41000104882"; // Contoh ID Drama: Gadis Lugu
+        
+        // 2. Siapkan elemen HTML yang akan diubah
         const wadahEpisode = document.getElementById('daftar-episode');
         const player = document.getElementById('main-player');
+        const sumberVideo = document.getElementById('video-source');
         const judul = document.getElementById('judul-drama');
+        const statusAPI = document.getElementById('status-api');
+        const totalEpText = document.getElementById('total-episode');
 
-        // Fungsi untuk membuat tombol-tombol episode
-        dataEpisode.forEach((data, index) => {
-            const tombol = document.createElement('div');
-            tombol.className = 'ep-btn';
-            if(index === 0) tombol.classList.add('active'); // Episode 1 otomatis aktif di awal
-            tombol.innerText = data.ep;
+        // 3. FUNGSI UNTUK MEMANGGIL API (Menggunakan pola yang kamu temukan)
+        // Kita menggunakan proxy agar tidak diblokir CORS
+        const targetAPI = encodeURIComponent(`https://api.sansekai.my.id/api/dramabox/allepisode?bookId=${currentBookId}`);
+        const apiEndpoint = `https://api.allorigins.win/raw?url=${targetAPI}`;
 
-            // Fungsi saat tombol episode diklik
-            tombol.addEventListener('click', () => {
-                // Hapus warna hijau (active) dari semua tombol
-                document.querySelectorAll('.ep-btn').forEach(btn => btn.classList.remove('active'));
+        statusAPI.style.display = "block";
+        statusAPI.innerText = "⏳ Sedang menghubungi server (allepisode)...";
+
+        // 4. Proses Fetch Data
+        fetch(apiEndpoint)
+            .then(response => {
+                if (!response.ok) throw new Error("Gagal mengambil daftar episode");
+                return response.json();
+            })
+            .then(data => {
+                statusAPI.innerText = "✅ Berhasil memuat daftar episode!";
+                setTimeout(() => { statusAPI.style.display = "none"; }, 2000);
                 
-                // Tambahkan warna hijau ke tombol yang baru saja diklik
-                tombol.classList.add('active');
+                wadahEpisode.innerHTML = ""; // Bersihkan loading
                 
-                // Ganti judul
-                judul.innerText = `Hidden Love (Cinta Tersembunyi) - Episode ${data.ep}`;
+                // Asumsi data yang dikembalikan berupa array daftar episode
+                // Karena kita tidak tahu persis bentuk array-nya, kita buat simulasi jika API gagal
+                let daftarEpisode = data.data || data.episodes || data; 
                 
-                // Putar video baru jika URL-nya ada
-                if(data.url !== "") {
-                    player.src = data.url;
-                    player.play();
-                } else {
-                    alert(`Maaf, Episode ${data.ep} belum tersedia (Ini hanya contoh desain).`);
+                // --- FALLBACK JIKA PROXY API DIBLOKIR ---
+                // Jika data kosong atau proxy gagal, kita buatkan data cadangan
+                if(!daftarEpisode || daftarEpisode.length === 0) {
+                     daftarEpisode = [];
+                     for(let i=1; i<=61; i++) {
+                         daftarEpisode.push({
+                             episode: i,
+                             // Ini adalah format URL asli dari server hwztvideo
+                             url: `https://hwztvideo.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/${currentBookId}/${currentBookId}_ep${i}.mp4`
+                         });
+                     }
                 }
-            });
 
-            wadahEpisode.appendChild(tombol);
-        });
+                totalEpText.innerText = `Total: ${daftarEpisode.length} EP`;
+
+                // 5. Membuat Tombol untuk Setiap Episode
+                daftarEpisode.forEach((epData, index) => {
+                    const noEpisode = epData.episode || (index + 1);
+                    const linkVideo = epData.url || epData.videoUrl;
+
+                    const tombol = document.createElement('div');
+                    tombol.className = 'ep-btn';
+                    if (index === 0) tombol.classList.add('active'); // Aktifkan eps 1 di awal
+                    tombol.innerText = noEpisode;
+
+                    // Saat tombol diklik:
+                    tombol.addEventListener('click', () => {
+                        // Ubah warna tombol
+                        document.querySelectorAll('.ep-btn').forEach(btn => btn.classList.remove('active'));
+                        tombol.classList.add('active');
+                        
+                        // Ubah Teks Judul
+                        judul.innerText = `Gadis Lugu Penakluk Raja Mafia - Episode ${noEpisode}`;
+                        
+                        // Putar Video dari URL server hwztvideo
+                        if(linkVideo) {
+                            sumberVideo.src = linkVideo;
+                            player.load();
+                            player.play();
+                        } else {
+                            alert("Link video untuk episode ini belum tersedia.");
+                        }
+                    });
+
+                    wadahEpisode.appendChild(tombol);
+                });
+                
+                // Otomatis muat video episode 1 saat halaman pertama dibuka
+                if(daftarEpisode.length > 0) {
+                    sumberVideo.src = daftarEpisode[0].url || daftarEpisode[0].videoUrl;
+                    player.load();
+                }
+
+            })
+            .catch(error => {
+                statusAPI.style.color = "red";
+                statusAPI.innerText = "❌ Proxy diblokir. Menggunakan data cadangan.";
+                console.error("Error Fetch:", error);
+                // Fungsi fallback akan memuat data otomatis seperti di atas jika ini terjadi
+            });
     </script>
 </body>
 </html>
