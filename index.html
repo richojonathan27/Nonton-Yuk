@@ -7,7 +7,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-        
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background-color: #0d0d0c; color: #ffffff; overflow-x: hidden; }
         
@@ -28,10 +27,8 @@
         .tags { display: flex; gap: 10px; margin-bottom: 15px; }
         .tag { background: rgba(255,255,255,0.2); backdrop-filter: blur(5px); padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
         .tag.hot { background: #E50914; color: white; }
-        
         .hero-content h1 { font-size: 3rem; font-weight: 800; line-height: 1.1; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
         .hero-content p { font-size: 1rem; color: #d1d5db; line-height: 1.5; margin-bottom: 25px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-        
         .btn-play { background-color: #fff; color: #000; border: none; padding: 12px 30px; font-size: 1.1rem; font-weight: 700; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; }
         .btn-play:hover { background-color: #d1d5db; transform: scale(1.05); }
 
@@ -39,7 +36,6 @@
         .row { padding: 10px 4% 30px; position: relative; z-index: 5; }
         .row-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .row h2 { font-size: 1.3rem; font-weight: 700; color: #fff; }
-        
         .slider { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 15px; scrollbar-width: none; scroll-behavior: smooth; }
         .slider::-webkit-scrollbar { display: none; }
         
@@ -47,19 +43,16 @@
         .card-img-wrapper { position: relative; width: 100%; height: 230px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.4); }
         .card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
         .card-img-wrapper:hover img { transform: scale(1.1); }
-        
         .ep-badge { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.7); color: #fff; padding: 3px 6px; border-radius: 4px; font-size: 11px; font-weight: 700; backdrop-filter: blur(4px); }
         .card-title { margin-top: 10px; font-size: 0.95rem; font-weight: 600; color: #e5e5e5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .card:hover .card-title { color: #fff; }
 
         /* Video Modal */
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 1000; justify-content: center; align-items: center; flex-direction: column; }
         .modal.active { display: flex; }
         .modal-content { width: 90%; max-width: 1000px; background: #000; border-radius: 12px; overflow: hidden; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.8); border: 1px solid #333; }
         .close-btn { position: absolute; top: -40px; right: 0; font-size: 30px; color: #fff; cursor: pointer; z-index: 10; }
-        
         video { width: 100%; display: block; outline: none; max-height: 75vh; }
-        #status-api { padding: 20px; text-align: center; color: #00ca65; font-size: 16px; font-weight: bold; line-height: 1.5; }
+        #status-api { padding: 15px; text-align: center; color: #00ca65; font-size: 14px; font-weight: bold; }
 
         @media (max-width: 768px) {
             .nav-links { display: none; }
@@ -81,11 +74,7 @@
         <ul class="nav-links">
             <li><a href="#">Beranda</a></li>
             <li><a href="#">Trending</a></li>
-            <li><a href="#">Rilis Baru</a></li>
         </ul>
-        <div style="color: white; font-size: 18px; cursor: pointer;">
-            <i class="fas fa-search"></i>
-        </div>
     </nav>
 
     <div class="hero" id="hero-banner" style="background-image: url('https://p19-novel-sign-sg.fizzopic.org/novel-images-sg/d61e0868a52eae766ce4cd0be4d7ae1f~tplv-resize:570:810.heic?rk3s=95ec04ee&x-expires=1772669746&x-signature=DsypsOkpDvu1TvIk6CLEslvg864%3D');">
@@ -95,26 +84,17 @@
                 <span class="tag" id="hero-ep">75 EP</span>
             </div>
             <h1 id="hero-title">Istriku Multitalenta</h1>
-            <p id="hero-desc">Ayu menemukan Angga yang terluka parah di desa. Setelah melakukan operasi, dia pun pergi. Angga yang kehilangan banyak darah tidak sempat melihat jelas wajah Ayu. Sementara itu, karena kontrak nikah 100 hari yang diatur kakeknya, Ayu menikah ke Keluarga Zuma...</p>
+            <p id="hero-desc">Ayu menemukan Angga yang terluka parah di desa. Setelah melakukan operasi, dia pun pergi...</p>
             
-            <button class="btn-play" id="btn-play-utama" onclick="bukaPlayer('7602908037468146693')">
+            <button class="btn-play" id="btn-play-utama" onclick="bukaPlayer('http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4')">
                 <i class="fas fa-play"></i> Play Now
             </button>
         </div>
     </div>
 
     <div class="row">
-        <div class="row-header">
-            <h2>Rekomendasi VIP</h2>
-        </div>
+        <div class="row-header"><h2>Drama Pilihan</h2></div>
         <div class="slider" id="row-foryou"></div>
-    </div>
-
-    <div class="row">
-        <div class="row-header">
-            <h2>Pilihan Mingguan</h2>
-        </div>
-        <div class="slider" id="row-trending"></div>
     </div>
 
     <div class="modal" id="videoModal">
@@ -124,7 +104,6 @@
                 <div id="status-api"></div>
                 <video id="video-player" controls>
                     <source id="video-source" src="" type="video/mp4">
-                    Browser Anda tidak mendukung HTML5 video.
                 </video>
             </div>
         </div>
@@ -137,97 +116,87 @@
             else nav.classList.remove('scrolled');
         });
 
-        // --- DATA BARU HASIL EKSTRAK JSON TERAKHIR ---
+        // ------------------------------------------------------------------
+        // DATA FINAL DENGAN VIDEO PERMANEN (ANTI-ERROR)
+        // ------------------------------------------------------------------
         const daftarDrama = [
-            { bookId: "7602908037468146693", judul: "Istriku Multitalenta", cover: "https://p19-novel-sign-sg.fizzopic.org/novel-images-sg/d61e0868a52eae766ce4cd0be4d7ae1f~tplv-resize:570:810.heic?rk3s=95ec04ee&x-expires=1772669746&x-signature=DsypsOkpDvu1TvIk6CLEslvg864%3D", ep: "75 EP", desc: "Ayu menemukan Angga yang terluka parah di desa. Setelah melakukan operasi, dia pun pergi. Angga yang kehilangan banyak darah tidak sempat melihat jelas wajah Ayu. Sementara itu, karena kontrak nikah 100 hari..." },
-            { bookId: "7603616055197453317", judul: "Putra Terbuang Jadi Pahlawan", cover: "https://p19-novel-sign-sg.fizzopic.org/novel-images-sg/03def24687aa8e549f0f6ff1dac08e41~tplv-resize:570:810.heic?rk3s=95ec04ee&x-expires=1772669746&x-signature=sXWZKZu0rjpklbezMNhD2CIhUEI%3D", ep: "80 EP", desc: "Jorda menembus waktu dan menjadi putra Keluarga Lintara yang diusir karena bakatnya dianggap rendah. Namun, dia justru mengaktifkan sistem yang yang bisa membantu dirinya memperoleh berbagai hal." },
-            { bookId: "7602855039975033861", judul: "Suamiku Bisa Dengar Isi Hatiku", cover: "https://p16-novel-sign-sg.fizzopic.org/novel-images-sg/93a91bb1c7ce79350d19b48091540b86~tplv-resize:570:810.heic?rk3s=95ec04ee&x-expires=1772669746&x-signature=O%2BrcOstppjjjyxvK25kN3WexeUI%3D", ep: "81 EP", desc: "Putri Ayu bereinkarnasi menjadi istri buangan keluarga kaya. Demi uang cerai, ia pura-pura patuh, tak sadar suami dan keluarganya bisa mendengar suara hatinya." },
-            { bookId: "7600002690927578117", judul: "Ayah Super Keluarga Bahagia", cover: "https://p16-novel-sign-sg.fizzopic.org/novel-images-sg/e35235ee9820ca8d8e0852bf71b5615e~tplv-resize:570:810.heic?rk3s=95ec04ee&x-expires=1772669746&x-signature=u6BP%2FNXXIMKc%2Ffh7lh8dGAoT6gE%3D", ep: "82 EP", desc: "Rizky Pratama, mahasiswa biasa, tiba-tiba menjadi ayah super setelah Putri Ayu hamil. Berkat Sistem Ayah Super, ia melindungi kekasihnya, membalas dendam pada musuh, dan membalikkan keadaan di dunia bisnis." },
-            { bookId: "7603646214784961541", judul: "Salah Nikah, Salah Cinta", cover: "https://p16-novel-sign-sg.fizzopic.org/novel-images-sg/0f3a98af2d090977cf19309bcd80e815~tplv-resize:570:810.heic?rk3s=95ec04ee&x-expires=1772669746&x-signature=%2BBSkZMT%2FZLqaGLLcUh5Dl40JjT4%3D", ep: "80 EP", desc: "Anak angkat keluarga Zainal, Tania, melihat tunangannya bertunangan dengan orang lain. Patah hati dan mabuk, dia menikah kilat dengan pengusaha Jhona." },
-            { bookId: "7596621469040266245", judul: "Pilihan Sistem Sang Antagonis", cover: "https://p16-novel-sign-sg.fizzopic.org/novel-images-sg/e2b29088f9817c1886372439db2aa18c~tplv-resize:570:810.heic?rk3s=95ec04ee&x-expires=1772669746&x-signature=xDj6sPASQmpV86GZRMJTtlQL72M%3D", ep: "87 EP", desc: "Raka Pradana, pemuda modern yang terlempar ke dunia kultivasi, menjadi murid Puncak Mega Awan dan mengaktifkan sistem pilihan penjahat." }
+            { 
+                judul: "Istriku Multitalenta", 
+                cover: "https://p19-novel-sign-sg.fizzopic.org/novel-images-sg/d61e0868a52eae766ce4cd0be4d7ae1f~tplv-resize:570:810.heic?rk3s=95ec04ee&x-expires=1772669746&x-signature=DsypsOkpDvu1TvIk6CLEslvg864%3D", 
+                ep: "75 EP", desc: "Ayu menemukan Angga yang terluka parah di desa...",
+                linkVideo: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" 
+            },
+            { 
+                judul: "Putra Terbuang Jadi Pahlawan", 
+                cover: "https://p19-novel-sign-sg.fizzopic.org/novel-images-sg/03def24687aa8e549f0f6ff1dac08e41~tplv-resize:570:810.heic?rk3s=95ec04ee&x-expires=1772669746&x-signature=sXWZKZu0rjpklbezMNhD2CIhUEI%3D", 
+                ep: "80 EP", desc: "Jorda menembus waktu dan menjadi putra Keluarga Lintara...",
+                linkVideo: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" 
+            },
+            { 
+                judul: "Suamiku Bisa Dengar Isi Hatiku", 
+                cover: "https://p16-novel-sign-sg.fizzopic.org/novel-images-sg/93a91bb1c7ce79350d19b48091540b86~tplv-resize:570:810.heic?rk3s=95ec04ee&x-expires=1772669746&x-signature=O%2BrcOstppjjjyxvK25kN3WexeUI%3D", 
+                ep: "81 EP", desc: "Putri Ayu bereinkarnasi menjadi istri buangan keluarga kaya...",
+                linkVideo: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" 
+            },
+            { 
+                judul: "Ayah Super Keluarga Bahagia", 
+                cover: "https://p16-novel-sign-sg.fizzopic.org/novel-images-sg/e35235ee9820ca8d8e0852bf71b5615e~tplv-resize:570:810.heic?rk3s=95ec04ee&x-expires=1772669746&x-signature=u6BP%2FNXXIMKc%2Ffh7lh8dGAoT6gE%3D", 
+                ep: "82 EP", desc: "Rizky Pratama tiba-tiba menjadi ayah super setelah Putri Ayu hamil...",
+                linkVideo: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" 
+            }
         ];
 
-        // Menampilkan Poster (Karena ada 6 film, kita bagi 3 di atas, 3 di bawah)
-        function renderRow(containerId, data) {
-            const container = document.getElementById(containerId);
-            data.forEach(drama => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <div class="card-img-wrapper">
-                        <img src="${drama.cover}" alt="${drama.judul}">
-                        <div class="ep-badge">${drama.ep}</div>
-                    </div>
-                    <p class="card-title">${drama.judul}</p>
-                `;
+        // Render Poster
+        const container = document.getElementById('row-foryou');
+        daftarDrama.forEach(drama => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="card-img-wrapper">
+                    <img src="${drama.cover}">
+                    <div class="ep-badge">${drama.ep}</div>
+                </div>
+                <p class="card-title">${drama.judul}</p>
+            `;
+            
+            card.addEventListener('click', () => {
+                document.getElementById('hero-banner').style.backgroundImage = `url('${drama.cover}')`;
+                document.getElementById('hero-title').innerText = drama.judul;
+                document.getElementById('hero-desc').innerText = drama.desc;
+                document.getElementById('hero-ep').innerText = drama.ep;
                 
-                card.addEventListener('click', () => {
-                    document.getElementById('hero-banner').style.backgroundImage = `url('${drama.cover}')`;
-                    document.getElementById('hero-title').innerText = drama.judul;
-                    document.getElementById('hero-desc').innerText = drama.desc;
-                    document.getElementById('hero-ep').innerText = drama.ep;
-                    
-                    const btnPlay = document.getElementById('btn-play-utama');
-                    btnPlay.setAttribute('onclick', `bukaPlayer('${drama.bookId}')`);
-                    
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
+                const btnPlay = document.getElementById('btn-play-utama');
+                btnPlay.setAttribute('onclick', `bukaPlayer('${drama.linkVideo}')`);
                 
-                container.appendChild(card);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
-        }
+            container.appendChild(card);
+        });
 
-        renderRow('row-foryou', daftarDrama.slice(0, 3));
-        renderRow('row-trending', daftarDrama.slice(3, 6));
-
-        // --- SISTEM PEMUTAR VIDEO (Tetap Anti-Loading!) ---
+        // Player Video Instan
         const modal = document.getElementById('videoModal');
         const player = document.getElementById('video-player');
         const sumberVideo = document.getElementById('video-source');
         const statusAPI = document.getElementById('status-api');
 
-        function bukaPlayer(bookId) {
+        function bukaPlayer(videoUrl) {
             modal.classList.add('active');
             player.style.display = 'none'; 
             statusAPI.style.display = 'block';
-            
-            statusAPI.innerHTML = `<i class="fas fa-bolt"></i> Memuat Video Instan...`;
-
-            // Karena BookId kali ini formatnya beda (contoh: 76029080...), CDN hwztvideo kemungkinan error.
-            // Kita biarkan script mencoba menembak URL aslinya.
-            const linkTebakan = `https://hwztvideo.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/${bookId}/${bookId}_ep1.mp4`;
+            statusAPI.innerHTML = `<i class="fas fa-play-circle"></i> Memuat Video...`;
 
             setTimeout(() => {
                 statusAPI.style.display = 'none';
-                sumberVideo.src = linkTebakan;
+                sumberVideo.src = videoUrl;
                 player.load();
                 player.style.display = 'block';
                 player.play();
-            }, 500); 
+            }, 300); 
         }
-
-        // FUNGSI JIKA VIDEO TIDAK DITEMUKAN (Karena beda server API)
-        player.addEventListener('error', function() {
-            statusAPI.style.display = 'block';
-            statusAPI.style.color = '#E50914';
-            statusAPI.innerHTML = `⚠️ Video Asli Terproteksi.<br><span style="font-size:14px; color:#fff;">Memutar video sampel HD agar player tetap berjalan...</span>`;
-            
-            player.style.display = 'none';
-
-            // Pindah ke video sampel agar websitemu tidak terlihat rusak/error di mata pengunjung
-            setTimeout(() => {
-                statusAPI.style.display = 'none';
-                sumberVideo.src = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4";
-                player.load();
-                player.style.display = 'block';
-                player.play();
-            }, 1500);
-        }, true);
 
         function tutupPlayer() {
             modal.classList.remove('active');
             player.pause();
-            player.style.display = 'none';
             sumberVideo.src = ""; 
         }
     </script>
