@@ -40,7 +40,7 @@
         .slider::-webkit-scrollbar { display: none; }
         
         .card { min-width: 160px; max-width: 160px; display: flex; flex-direction: column; cursor: pointer; }
-        .card-img-wrapper { position: relative; width: 100%; height: 230px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.4); background-color: #333; }
+        .card-img-wrapper { position: relative; width: 100%; height: 230px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.4); background-color: #222; }
         .card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
         .card-img-wrapper:hover img { transform: scale(1.1); }
         .ep-badge { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.7); color: #fff; padding: 3px 6px; border-radius: 4px; font-size: 11px; font-weight: 700; backdrop-filter: blur(4px); }
@@ -86,7 +86,7 @@
             <h1 id="hero-title">Gadis Lugu Penakluk Raja Mafia</h1>
             <p id="hero-desc">Setelah diculik oleh raja mafia, Bella yang polos dipaksa untuk menandatangani kontrak...</p>
             
-            <button class="btn-play" id="btn-play-utama" onclick="bukaPlayer('http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4')">
+            <button class="btn-play" id="btn-play-utama" onclick="bukaPlayer('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4')">
                 <i class="fas fa-play"></i> Play Now
             </button>
         </div>
@@ -117,32 +117,32 @@
         });
 
         // ------------------------------------------------------------------
-        // DATA KEMBALI KE SANSEKAI YANG 100% AMAN (.JPG & TANPA TOKEN)
+        // GAMBAR .JPG AMAN & VIDEO HTTPS AMAN
         // ------------------------------------------------------------------
         const daftarDrama = [
             { 
                 judul: "Gadis Lugu Penakluk Raja Mafia", 
                 cover: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000104882/41000104882.jpg", 
                 ep: "61 EP", desc: "Setelah diculik oleh raja mafia, Bella yang polos dipaksa untuk menandatangani kontrak...",
-                linkVideo: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" 
+                linkVideo: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" 
             },
             { 
                 judul: "Cerita Cinta Cheerleader", 
                 cover: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000119583/41000119583.jpg", 
                 ep: "57 EP", desc: "Jane terpaksa tinggal bersama musuh bebuyutannya sejak kecil, William...",
-                linkVideo: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" 
+                linkVideo: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" 
             },
             { 
                 judul: "Ciumanmu Mengubah Duniaku", 
                 cover: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000119254/41000119254.jpg", 
                 ep: "53 EP", desc: "Takdir mempertemukan Gabrielle dengan Kyle, seorang CEO tampan...",
-                linkVideo: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" 
+                linkVideo: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" 
             },
             { 
                 judul: "Bangkit dan Berkuasa", 
                 cover: "https://hwztchapter.dramaboxdb.com/data/cppartner/4x1/41x0/410x0/41000107468/41000107468.jpg", 
                 ep: "90 EP", desc: "Rendy yang diremehkan tiba-tiba diajak menikah oleh Ratu Bisnis dan CEO cantik...",
-                linkVideo: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" 
+                linkVideo: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" 
             }
         ];
 
@@ -194,11 +194,11 @@
             }, 300); 
         }
 
-        // Tampilkan peringatan jika video error
+        // Tampilkan peringatan jika video tetap error
         player.addEventListener('error', function() {
             statusAPI.style.display = 'block';
             statusAPI.style.color = '#E50914';
-            statusAPI.innerHTML = `⚠️ Gagal Memutar.<br><span style="font-size:12px; color:#aaa;">Link video tidak valid atau sudah kadaluarsa.</span>`;
+            statusAPI.innerHTML = `⚠️ Gagal Memutar.<br><span style="font-size:12px; color:#aaa;">Pastikan link video diawali dengan HTTPS://</span>`;
             player.style.display = 'none';
         }, true);
 
