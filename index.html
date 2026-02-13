@@ -72,47 +72,50 @@
     <div class="row">
         <h2>Sedang Tren Sekarang</h2>
         <div class="row">
-        <h2>Film Terbaru (Dari API Endpoint) ⚡</h2>
+        <h2>Film Terbaru⚡</h2>
         <div class="posters" id="tempat-poster-api">
             <p style="color: #a3a3a3;">Sedang memuat data dari API...</p>
 
     <script>
-        // 1. Tentukan URL API Endpoint (Contoh: API Film Publik dari YTS)
-        const apiEndpoint = 'https://dramawave.dramabos.my.id/api/recommend?lang=in';
+        // 1. Kita ganti URL API Endpoint ke TVMaze (Aman & Tidak diblokir)
+        const apiEndpoint = 'https://api.tvmaze.com/shows';
 
-        // 2. Cari wadah HTML tempat kita akan menaruh gambarnya
         const wadahPoster = document.getElementById('tempat-poster-api');
 
-        // 3. Panggil API menggunakan fetch()
         fetch(apiEndpoint)
-            .then(response => response.json()) // Ubah respon API menjadi format JSON
+            .then(response => {
+                if (!response.ok) throw new Error('Gagal terhubung ke API');
+                return response.json();
+            })
             .then(data => {
                 // Hapus tulisan "Sedang memuat..."
                 wadahPoster.innerHTML = ''; 
 
-                // Ambil daftar film dari dalam data JSON
-                const daftarFilm = data.data.movies;
+                // Kita ambil 8 serial TV pertama saja agar tampilannya rapi
+                const daftarFilm = data.slice(0, 8);
 
-                // 4. Lakukan perulangan (Loop) untuk setiap film yang didapat
+                // Lakukan perulangan untuk setiap film
                 daftarFilm.forEach(film => {
-                    // Buat elemen <div> baru untuk poster
                     const posterBaru = document.createElement('div');
                     posterBaru.className = 'poster';
                     
-                    // Masukkan link gambar dari API ke dalam background CSS
-                    posterBaru.style.backgroundImage = `url('${film.medium_cover_image}')`;
+                    // TVMaze menyimpan link gambar di dalam film.image.original
+                    if (film.image && film.image.original) {
+                        posterBaru.style.backgroundImage = `url('${film.image.original}')`;
+                    } else {
+                        // Jika tidak ada gambar dari API, beri warna abu-abu
+                        posterBaru.style.backgroundColor = '#333'; 
+                    }
                     
-                    // Tambahkan judul film agar muncul saat mouse diarahkan ke gambar
-                    posterBaru.title = film.title;
+                    // TVMaze menggunakan 'name' untuk judul
+                    posterBaru.title = film.name; 
 
-                    // Masukkan poster yang sudah jadi ke dalam wadah utama
                     wadahPoster.appendChild(posterBaru);
                 });
             })
             .catch(error => {
-                // Jika API gagal dipanggil, tampilkan pesan error
-                wadahPoster.innerHTML = '<p style="color: #E50914;">Gagal mengambil data dari API.</p>';
-                console.error('Error dari API:', error);
+                wadahPoster.innerHTML = '<p style="color: #E50914;">Gagal memuat API. Periksa koneksi internet.</p>';
+                console.error('Error:', error);
             });
     </script>
     </div>
